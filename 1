@@ -1,0 +1,70 @@
+In what product category in AdventureWorks database is the highest number of products? Write the name of the category, the number of products and paste
+the SQL code.
+
+select sum(pi2.Quantity) as total,pc.Name from Production.Product pd
+join Production.ProductInventory pi2 on pd.ProductID =pi2.ProductID 
+join Production.ProductSubcategory ps on pd.ProductSubcategoryID =ps.ProductSubcategoryID 
+join Production.ProductCategory pc  on ps.ProductCategoryID =pc.ProductCategoryID 
+group by pc.Name order by total desc
+
+
+
+
+For what product is the "Review" most popular reason to buy? Write the name, number of sales and
+paste the full SQL query.
+
+select count(fis.SalesOrderNumber) as salesNumber,dp.EnglishProductName from dbo.DimProduct dp 
+join dbo.FactInternetSales fis on dp.ProductKey =fis.ProductKey 
+join dbo.FactInternetSalesReason fisr on fis.SalesOrderNumber =fisr.SalesOrderNumber 
+join dbo.DimSalesReason dsr on fisr.SalesReasonKey =dsr.SalesReasonKey 
+where dsr.SalesReasonName ='Review' group by dp.EnglishProductName order by salesNumber desc
+
+
+
+
+What is the name of best salesman in AdventureWorks database according to total revenue of sales (Sales.SalesOrderHeader) and
+what is the value? Write First name, Last name and total sum of all orders
+
+select sum(soh.TotalDue) as total,vsp.FirstName,vsp.LastName from Sales.SalesOrderHeader soh 
+join Sales.vSalesPerson vsp on soh.SalesPersonID =vsp.BusinessEntityID 
+group by vsp.FirstName ,vsp.LastName  order by total desc
+
+
+
+
+
+
+Use the AdventureWorksDW to answer the question. What customer has the highest number of sales in the 4th quarter of all years?
+Write the last name of the customer, the number and paste the full SQL query
+
+
+select count(fis.SalesOrderNumber) as ns,dc.LastName from dbo.FactInternetSales fis 
+join dbo.DimCustomer dc on fis.CustomerKey =dc.CustomerKey 
+join dbo.DimDate dd on fis.OrderDateKey =dd.DateKey
+where dd.CalendarQuarter =4 GROUP by dc.LastName order by ns desc 
+
+
+
+Use the AdventureWorksDW to answer the quesiton. What is the total amount of internet sales to customers from Ontario in
+the 39th week of 2012? Write the number and paste the full SQL query.
+
+select sum(fis.SalesAmount) from FactInternetSales fis
+join DimCustomer dc on fis.CustomerKey =dc.CustomerKey 
+join DimSalesTerritory dst 
+on fis.SalesTerritoryKey =dst.SalesTerritoryKey 
+join DimGeography dg on dst.SalesTerritoryKey =dg.SalesTerritoryKey
+join DimDate dd on fis.OrderDateKey =dd.DateKey 
+where dst.SalesTerritoryCountry ='United States' and dg.City='Ontario'
+and dd.WeekNumberOfYear =39 and dd.CalendarYear =2012
+
+
+
+Most active customer territroy in AdventuresWork according to number of sales(Sales.SalesOrderHeader) and number of orders
+
+select count(soh.SalesOrderID) as salesOrder,st.Name from Sales.SalesOrderHeader soh 
+join Sales.SalesTerritory st on soh.TerritoryID =st.TerritoryID 
+group by st.Name order by salesOrder desc
+
+
+
+
