@@ -771,3 +771,77 @@ total.visualize()
 total.compute()
 
 """[top](#0)"""
+
+
+import pandas as pd
+
+df=pd.read_excel("test_data.xlsx")
+
+dataselected=df.iloc[94263:95632,:]
+
+dataselected.isnull().sum()
+
+data_cl=dataselected.dropna()
+
+data_cl=data_cl[(data_cl["Quality"]>=0) &(data_cl["Price"]>=0)]
+
+data_cl["Invoice"]=data_cl["Invoice"].astype(str)
+
+data_cl=data_cl[data_cl["Invoice"].str.isnumeric()]
+
+
+data_cl["Invocie"].nuinque()
+
+data_cl.groupby("Country")["Invoice"].nunique()
+
+data_cl["TotalPrice"]=data_cl["Quant"]
+
+data_cl.sort_values(by="TotalPrice",ascending=False)
+
+data_cl.groupby("Customer")[["TotalPrices"]].sum().sort_values(by="TotalPrice",ascending=False)
+data_cl[data_Cl["Custommer"]==26516]["Invoice"].count()
+
+
+
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA
+from sklearn.cluster import KMeans
+from scipy.spatial.distance import euclidean
+
+
+df=pd.read_csv("data_test_clustering_A1.csv")
+dataSelect=df.iloc[15161,651651,:]
+
+pca=PCA(n_components=2)
+pca_transform=pca.fit_transform(dataSelect)
+
+pca_data=pd.DataFrame(data=pca_transform,columns=["PC1","PC2"])
+
+plt.figure(figsize=(10,6))
+plt.scatter(pca_data["PC1"],pca_data["PC2"],alpha=0.6)
+plt.xlabel()
+plt.ylabel()
+plt.grid(True)
+plt.show()
+
+
+index11=pca_transform[11]
+index832=pca_transform[832]
+
+mostsig11=index11[0]
+mostsig11=index832[1]
+
+distance=euclidean(index11,index832)
+
+kmeans=KMeans(n_clusters=4,random_state=0)
+clusterlabel=kmeans.fit_predict(pca_transform)
+
+cluster11=clusterlabel[11]
+cluster832=clusterlabel[832]
+
+
+
+
