@@ -843,5 +843,15 @@ cluster11=clusterlabel[11]
 cluster832=clusterlabel[832]
 
 
+local sum = 0
+for i = 20, 80 do
+  local value = redis.call('HGET', 'user:' .. i, 'a')
+  if value then
+    sum = sum + tonumber(value)
+  end
+end
+
+return sum
+
 
 
