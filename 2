@@ -17,6 +17,17 @@ Write the full index syntax.
 
 
 
+map("Orders", (od) => {
+
+ let comp = load(od.Company, "Companies")
+ return {
+ compName: comp.Name
+ };
+
+})
+
+
+
 
 
 How many pieces in total of Filo Mix Sold?
